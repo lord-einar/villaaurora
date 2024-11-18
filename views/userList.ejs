@@ -1,0 +1,49 @@
+<!-- views/userList.ejs -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Usuarios</title>
+</head>
+<body>
+  <h1>Gestión de Usuarios</h1>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Conductor</th>
+        <th>Admin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.displayName %></td>
+        <td><%= user.email %></td>
+        <td><%= user.conductor %></td>
+        <td><%= user.admin %></td>
+        <td>
+          <form action="/api/users/<%= user.googleId %>/roles" method="POST">
+            <label>
+              Conductor:
+              <input type="checkbox" name="conductor" <%= user.conductor ? 'checked' : '' %>>
+            </label>
+            <label>
+              Admin:
+              <input type="checkbox" name="admin" <%= user.admin ? 'checked' : '' %>>
+            </label>
+            <button type="submit">Actualizar</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
